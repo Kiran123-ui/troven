@@ -19,6 +19,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { useSidebar } from "./providers"
+import Image from "next/image"
 
 const menuItems = [
   { icon: Home, label: "Dashboard", href: "/admin/dashboard" },
@@ -40,12 +41,17 @@ export function Sidebar() {
   return (
     <div className="w-70 bg-blue-600 text-white flex flex-col">
       <div className="p-4 flex items-center gap-2">
-        <div className="bg-white rounded-full p-1.5">
-          <svg className="w-6 h-6 text-blue-600" viewBox="0 0 24 24" fill="none">
-            <path d="M12 5.25L5.25 12 12 18.75 18.75 12 12 5.25z" fill="currentColor" />
-            <path d="M16.5 7.5L12 12l4.5 4.5-4.5-4.5z" fill="currentColor" />
-          </svg>
-        </div>
+        <div className="h-8 w-8 rounded-full bg-white flex items-center justify-center">
+                     <div className="h-6 w-6 text-blue-600">
+                        <Image
+                                       src={"/tenant/Logo.png"}
+                                       width={56}
+                                       height={56}
+                                       alt="Logo"
+                                       className="object-cover"
+                                     />
+                     </div>
+                   </div>
         <span className="text-xl font-bold">Troven</span>
         <div className="ml-auto flex items-center gap-2">
           <div className="relative">

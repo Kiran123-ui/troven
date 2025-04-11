@@ -40,7 +40,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
-      {/* Left Section - Make it full width on mobile */}
+      {/* Left Section - Full width on mobile */}
       <div className="w-full lg:w-1/2 p-4 sm:p-6 md:p-12 lg:p-24 flex flex-col justify-center bg-white">
         <div className="max-w-md mx-auto w-full">
           <div className="mb-8 lg:mb-12">
@@ -62,8 +62,8 @@ export default function LoginPage() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h1 className="text-3xl font-bold mb-3 text-gray-800">Welcome Again!</h1>
-                  <p className="text-gray-500">Sign in to your Troven account</p>
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 text-gray-800">Welcome Admin!</h1>
+                  <p className="text-gray-500 text-sm sm:text-base">Sign in to manage your platform</p>
                 </motion.div>
               ) : (
                 <motion.div
@@ -73,8 +73,8 @@ export default function LoginPage() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h1 className="text-3xl font-bold mb-3 text-gray-800">Verify Your Identity</h1>
-                  <p className="text-gray-500">Enter the verification code to continue</p>
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3 text-gray-800">Verify Identity</h1>
+                  <p className="text-gray-500 text-sm sm:text-base">Enter verification code to continue</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -88,14 +88,14 @@ export default function LoginPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="space-y-5"
+                className="space-y-4 sm:space-y-5"
               >
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="relative">
                     <Input 
                       type="email" 
                       placeholder="Your Email" 
-                      className={`pl-10 py-6 rounded-lg shadow-sm border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-200 transition-all
+                      className={`pl-10 py-4 sm:py-6 text-sm sm:text-base rounded-lg shadow-sm border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-200 transition-all
                         ${errors.email ? "border-red-500 focus:border-red-500 focus:ring-red-200" : ""}`}
                       {...register("email", { 
                         required: "Email is required", 
@@ -130,7 +130,7 @@ export default function LoginPage() {
                     <Input 
                       type={showPassword ? "text" : "password"} 
                       placeholder="Enter Password" 
-                      className={`pl-10 py-6 rounded-lg shadow-sm border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-200 transition-all
+                      className={`pl-10 py-4 sm:py-6 text-sm sm:text-base rounded-lg shadow-sm border-gray-200 focus:border-blue-500 focus:ring focus:ring-blue-200 transition-all
                         ${errors.password ? "border-red-500 focus:border-red-500 focus:ring-red-200" : ""}`}
                       {...register("password", { 
                         required: "Password is required",
@@ -167,12 +167,12 @@ export default function LoginPage() {
                   </div>
 
                   <div className="flex justify-between items-center pt-3 mt-5">
-                    <Link href="#" className="text-gray-500 text-sm hover:text-blue-600 transition-colors">
-                      Forgot your password?
+                    <Link href="/admin/forgot-password" className="text-gray-500 text-sm hover:text-blue-600 transition-colors">
+                      Forgot password?
                     </Link>
                     <Button 
                       type="submit"
-                      className="bg-blue-600 hover:bg-blue-700 px-8 py-6 rounded-lg font-medium shadow-md hover:shadow-lg transition-all"
+                      className="px-8 py-4 sm:py-6 text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded-lg font-medium shadow-md hover:shadow-lg transition-all"
                       disabled={!isValid}
                     >
                       Sign In
@@ -185,64 +185,51 @@ export default function LoginPage() {
                 email={emailValue} 
                 onBack={() => setAuthStep("credentials")}
                 onVerify={handleVerifyMfa}
+                className="space-y-4 sm:space-y-6"
               />
             )}
           </AnimatePresence>
+        </div>
+      </div>
 
-          {authStep === "credentials" && (
-            <div className="mt-6 lg:mt-10">
-              <Button 
-                variant="outline" 
-                className="w-full py-4 lg:py-6 text-sm lg:text-base"
-                onClick={()=>window.location.href="/tenant/signup"}
-              >
-                <span className="text-blue-600 font-medium">
-                Signup For Free
-                </span>
-              </Button>
+     {/* Right Section - Hide on mobile, show on lg screens */}
+          <div className="hidden lg:flex w-full lg:w-1/2 bg-blue-600 flex-col justify-center items-center text-white relative">
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/tenant/bg_img.png"
+                alt="Background"
+                fill
+                className="object-cover opacity-20"
+                priority
+              />
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Right Section - Hide on mobile, show on lg screens */}
-      <div className="hidden lg:flex w-full lg:w-1/2 bg-blue-600 flex-col justify-center items-center text-white relative">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/tenant/bg_img.png"
-            alt="Background"
-            fill
-            className="object-cover opacity-20"
-            priority
-          />
-        </div>
-        
-        {/* Blue overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 to-blue-800/90 opacity-40 z-10"></div>
-        
-        <div className="relative z-20 p-8 md:p-16 flex flex-col items-center">
-          <div className="w-[300px] h-[300px] md:w-[380px] md:h-[380px] mx-auto mb-16">
-            <Image
-              src={"/tenant/login_Group.png"}
-              width={380}
-              height={380}
-              alt="Spiral design"
-              className="object-cover"
-            />
+            
+            {/* Blue overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/90 to-blue-800/90 opacity-40 z-10"></div>
+            
+            <div className="relative z-20 p-8 md:p-16 flex flex-col items-center">
+              <div className="w-[300px] h-[300px] md:w-[380px] md:h-[380px] mx-auto mb-16">
+                <Image
+                  src={"/tenant/login_Group.png"}
+                  width={380}
+                  height={380}
+                  alt="Spiral design"
+                  className="object-cover"
+                />
+              </div>
+    
+              <div className="text-center max-w-3xl">
+                <h2 className="text-4xl font-bold mb-2">Effortless</h2>
+                <h2 className="text-4xl font-bold mb-8">Management With Troven</h2>
+                <div className="w-80 h-0.5 bg-white/40 mx-auto mb-8"></div>
+                <p className=" text-base md:text-lg text-white/90 px-4 leading-relaxed">
+                  Embrace the digital transformation that simplifies assessment creation, optimizes distribution, and provides
+                  real-time analytics for informed decision-making.
+                </p>
+              </div>
+            </div>
           </div>
-
-          <div className="text-center max-w-3xl">
-            <h2 className="text-4xl font-bold mb-2">Effortless</h2>
-            <h2 className="text-4xl font-bold mb-8">Management With Troven</h2>
-            <div className="w-80 h-0.5 bg-white/40 mx-auto mb-8"></div>
-            <p className=" text-base md:text-lg text-white/90 px-4 leading-relaxed">
-              Embrace the digital transformation that simplifies assessment creation, optimizes distribution, and provides
-              real-time analytics for informed decision-making.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
